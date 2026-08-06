@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "bundler",
+    "checkJs": true,
+    "noEmit": true,
+    "strict": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "ignoreDeprecations": "6.0",
+    "types": ["node"]
+  },
+  "include": [
+    "**/*.js",
+    "**/*.spec.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "playwright-report"
+  ]
+}

@@ -1,0 +1,66 @@
+Test Case ID,Modul,Fungsi yang Diuji,Teknik,Kelas Ekivalen / Nilai Batas,Input,Expected Output,HTTP Status,Hasil
+BB-EP-001,Login,Validasi Email,EP - EP1 (Valid),Email valid & terdaftar,"email: admin@eduscale.id | password: admin123",Login berhasil + token JWT,200,PASS
+BB-EP-002,Login,Validasi Email,EP - EP2 (Invalid Format),Format email salah (tanpa @domain),"email: bukan_email | password: admin123",Error format email tidak valid,400,PASS
+BB-EP-003,Login,Validasi Email,EP - EP2 (Invalid Format),Email tanpa domain lengkap,"email: admin@ | password: admin123",Error format email,400,PASS
+BB-EP-004,Login,Validasi Email,EP - EP3 (Kosong),Email kosong,"email: (kosong) | password: admin123",Error field wajib diisi,400,PASS
+BB-EP-005,Login,Validasi Email,EP - EP4 (Valid format tapi tidak terdaftar),Email valid tapi tidak ada di sistem,"email: tidakterdaftar@eduscale.id | password: admin123",Error email atau password salah,401,PASS
+BB-EP-006,Login,Validasi Password,EP - EP6 (< Minimum),Password kurang dari 6 karakter,"email: admin@eduscale.id | password: 12345",Error password minimal 6 karakter,400,PASS
+BB-EP-007,Login,Validasi Password,EP - EP7 (>= Min tapi salah),Password panjang valid tapi salah,"email: admin@eduscale.id | password: wrongpassword",Error email atau password salah,401,PASS
+BB-EP-008,Login,Validasi Password,EP - EP3 (Kosong),Password kosong,"email: admin@eduscale.id | password: (kosong)",Error field wajib diisi,400,PASS
+BB-BVA-001,Login,Panjang Password,BVA - Di bawah batas minimum (5 karakter),Min = 6; nilai uji = 5,"password: 12345 (5 karakter)",Error password minimal 6 karakter,400,PASS
+BB-BVA-002,Login,Panjang Password,BVA - Tepat batas minimum (6 karakter),Min = 6; nilai uji = 6,"password: 123456 (6 karakter)",Format diterima (password salah → 401),401,PASS
+BB-BVA-003,Login,Panjang Password,BVA - Di atas batas minimum (7 karakter),Min = 6; nilai uji = 7,"password: 1234567 (7 karakter)",Format diterima (password salah → 401),401,PASS
+BB-BVA-004,Login,Panjang Password,BVA - Nol karakter (di bawah batas),Min = 6; nilai uji = 0,"password: (kosong/0 karakter)",Error field wajib diisi,400,PASS
+BB-BVA-005,Login,Panjang Password,BVA - Password benar (8 karakter),Min = 6; nilai uji = 8 (benar),"password: admin123 (8 karakter)",Login berhasil,200,PASS
+BB-EP-009,Register,Validasi Nama,EP - EP1 (Valid),Nama 1-100 karakter,"name: Budi Santoso | email: budi@test.com | password: password123 | role_id: 2",User berhasil dibuat,201,PASS
+BB-EP-010,Register,Validasi Nama,EP - EP2 (Kosong),Nama kosong,"name: (kosong) | email: test2@test.com | password: password123 | role_id: 2",Error nama wajib diisi,400,PASS
+BB-EP-011,Register,Validasi Nama,EP - EP3 (> Maksimum),Nama lebih dari 100 karakter,"name: AAAA...101 karakter | email: test3@test.com",Error nama terlalu panjang,400,PASS
+BB-EP-012,Register,Validasi Role,EP - EP4 (Valid - Admin),role_id = 1 (Admin),"name: User Admin | email: ua@test.com | role_id: 1",User berhasil dibuat,201,PASS
+BB-EP-013,Register,Validasi Role,EP - EP4 (Valid - Guru),role_id = 2 (Guru),"name: User Guru | email: ug@test.com | role_id: 2",User berhasil dibuat,201,PASS
+BB-EP-014,Register,Validasi Role,EP - EP4 (Valid - BK),role_id = 3 (BK),"name: User BK | email: ubk@test.com | role_id: 3",User berhasil dibuat,201,PASS
+BB-EP-015,Register,Validasi Role,EP - EP5 (Invalid),role_id = 0 (tidak ada),"name: User Invalid | email: ui@test.com | role_id: 0",Error role tidak valid,400,PASS
+BB-EP-016,Register,Validasi Role,EP - EP5 (Invalid),role_id = 99 (tidak ada),"name: User Invalid | email: ui2@test.com | role_id: 99",Error role tidak valid,400,PASS
+BB-BVA-006,Register,Panjang Nama,BVA - Di bawah minimum (0 karakter),Min = 1 Max = 100; nilai uji = 0,"name: (kosong)",Error nama wajib diisi,400,PASS
+BB-BVA-007,Register,Panjang Nama,BVA - Tepat minimum (1 karakter),Min = 1; nilai uji = 1,"name: A (1 karakter)",User berhasil dibuat,201,PASS
+BB-BVA-008,Register,Panjang Nama,BVA - Di atas minimum (2 karakter),Min = 1; nilai uji = 2,"name: AB (2 karakter)",User berhasil dibuat,201,PASS
+BB-BVA-009,Register,Panjang Nama,BVA - Di bawah maksimum (99 karakter),Max = 100; nilai uji = 99,"name: AA...99 karakter",User berhasil dibuat,201,PASS
+BB-BVA-010,Register,Panjang Nama,BVA - Tepat maksimum (100 karakter),Max = 100; nilai uji = 100,"name: AA...100 karakter",User berhasil dibuat,201,PASS
+BB-BVA-011,Register,Panjang Nama,BVA - Di atas maksimum (101 karakter),Max = 100; nilai uji = 101,"name: AA...101 karakter",Error nama terlalu panjang,400,PASS
+BB-BVA-012,Register,Role ID,BVA - Di bawah minimum (role_id = 0),Min = 1; nilai uji = 0,"role_id: 0",Error role tidak valid,400,PASS
+BB-BVA-013,Register,Role ID,BVA - Tepat minimum (role_id = 1),Min = 1; nilai uji = 1,"role_id: 1",User berhasil dibuat,201,PASS
+BB-BVA-014,Register,Role ID,BVA - Tepat maksimum (role_id = 3),Max = 3; nilai uji = 3,"role_id: 3",User berhasil dibuat,201,PASS
+BB-BVA-015,Register,Role ID,BVA - Di atas maksimum (role_id = 4),Max = 3; nilai uji = 4,"role_id: 4",Error role tidak valid,400,PASS
+BB-BVA-016,Paginasi,Parameter Page,BVA - Di bawah minimum (page = 0),Min = 1; nilai uji = 0,"GET /students?page=0&limit=10",Error page minimal 1,400,PASS
+BB-BVA-017,Paginasi,Parameter Page,BVA - Tepat minimum (page = 1),Min = 1; nilai uji = 1,"GET /students?page=1&limit=10",Data berhasil dimuat,200,PASS
+BB-BVA-018,Paginasi,Parameter Page,BVA - Di atas minimum (page = 2),Min = 1; nilai uji = 2,"GET /students?page=2&limit=10",Data halaman 2 dimuat,200,PASS
+BB-BVA-019,Paginasi,Parameter Limit,BVA - Di bawah minimum (limit = 0),Min = 1; nilai uji = 0,"GET /students?page=1&limit=0",Error limit minimal 1,400,PASS
+BB-BVA-020,Paginasi,Parameter Limit,BVA - Tepat minimum (limit = 1),Min = 1; nilai uji = 1,"GET /students?page=1&limit=1",Data 1 item dimuat,200,PASS
+BB-BVA-021,Paginasi,Parameter Limit,BVA - Tepat maksimum (limit = 100),Max = 100; nilai uji = 100,"GET /students?page=1&limit=100",Data max 100 item dimuat,200,PASS
+BB-BVA-022,Paginasi,Parameter Limit,BVA - Di atas maksimum (limit = 101),Max = 100; nilai uji = 101,"GET /students?page=1&limit=101",Error limit maksimal 100,400,PASS
+BB-EP-017,Tambah Siswa,Validasi Nama,EP - EP1 (Valid),Nama 1-100 karakter,"name: Ahmad Fauzan | nis: 2024001",Siswa berhasil ditambahkan,201,PASS
+BB-EP-018,Tambah Siswa,Validasi Nama,EP - EP2 (Kosong),Nama kosong,"name: (kosong) | nis: 2024002",Error nama wajib diisi,400,PASS
+BB-EP-019,Tambah Siswa,Validasi Nama,EP - EP3 (> Maks),Nama lebih dari 100 karakter,"name: AA...101 karakter",Error nama terlalu panjang,400,PASS
+BB-EP-020,Tambah Siswa,Validasi Status,EP - EP4 (Valid: Aktif),Status = Aktif,"name: Siswa A | nis: S001 | status: Aktif",Siswa berhasil ditambahkan,201,PASS
+BB-EP-021,Tambah Siswa,Validasi Status,EP - EP4 (Valid: Lulus),Status = Lulus,"name: Siswa B | nis: S002 | status: Lulus",Siswa berhasil ditambahkan,201,PASS
+BB-EP-022,Tambah Siswa,Validasi Status,EP - EP4 (Valid: Pindah),Status = Pindah,"name: Siswa C | nis: S003 | status: Pindah",Siswa berhasil ditambahkan,201,PASS
+BB-EP-023,Tambah Siswa,Validasi Status,EP - EP4 (Valid: Keluar),Status = Keluar,"name: Siswa D | nis: S004 | status: Keluar",Siswa berhasil ditambahkan,201,PASS
+BB-EP-024,Tambah Siswa,Validasi Status,EP - EP5 (Invalid),Status = Dropout (di luar enum),"name: Siswa E | nis: S005 | status: Dropout",Error status tidak valid,400,PASS
+BB-EP-025,Tambah Siswa,Validasi Status,EP - EP5 (Case Sensitive),Status = aktif (huruf kecil),"name: Siswa F | nis: S006 | status: aktif",Error status tidak valid,400,PASS
+BB-EP-026,Tambah Siswa,NIS Unik,EP - EP9 (Duplikat),NIS yang sama dengan siswa existing,"name: Siswa 2 | nis: DUPLIKAT (sudah ada)",Error NIS sudah terdaftar,400,PASS
+BB-BVA-023,Tambah Siswa,Panjang NIS,BVA - Di bawah minimum (2 karakter),Min = 3 Max = 20; nilai uji = 2,"nis: AB (2 karakter)",Error NIS harus 3-20 karakter,400,PASS
+BB-BVA-024,Tambah Siswa,Panjang NIS,BVA - Tepat minimum (3 karakter),Min = 3; nilai uji = 3,"nis: ABC (3 karakter)",Siswa berhasil ditambahkan,201,PASS
+BB-BVA-025,Tambah Siswa,Panjang NIS,BVA - Di atas minimum (4 karakter),Min = 3; nilai uji = 4,"nis: ABCD (4 karakter)",Siswa berhasil ditambahkan,201,PASS
+BB-BVA-026,Tambah Siswa,Panjang NIS,BVA - Di bawah maksimum (19 karakter),Max = 20; nilai uji = 19,"nis: AA...19 karakter",Siswa berhasil ditambahkan,201,PASS
+BB-BVA-027,Tambah Siswa,Panjang NIS,BVA - Tepat maksimum (20 karakter),Max = 20; nilai uji = 20,"nis: AA...20 karakter",Siswa berhasil ditambahkan,201,PASS
+BB-BVA-028,Tambah Siswa,Panjang NIS,BVA - Di atas maksimum (21 karakter),Max = 20; nilai uji = 21,"nis: AA...21 karakter",Error NIS terlalu panjang,400,PASS
+BB-BVA-029,Tambah Guru,NIP Guru,BVA - Di bawah batas (17 digit),Fixed = 18 digit; nilai uji = 17,"nip: 111...17 digit",Error NIP harus 18 digit,400,PASS
+BB-BVA-030,Tambah Guru,NIP Guru,BVA - Tepat batas (18 digit),Fixed = 18 digit; nilai uji = 18,"nip: 111...18 digit",Guru berhasil ditambahkan,201,PASS
+BB-BVA-031,Tambah Guru,NIP Guru,BVA - Di atas batas (19 digit),Fixed = 18 digit; nilai uji = 19,"nip: 111...19 digit",Error NIP harus 18 digit,400,PASS
+BB-EP-027,Tambah Guru,Validasi Nama,EP - EP1 (NIP Opsional),Guru tanpa NIP (opsional),"name: Bu Guru Tanpa NIP",Guru berhasil ditambahkan,201,PASS
+BB-EP-028,Tambah Guru,Validasi Nama,EP - EP2 (Nama Kosong),Nama kosong,"nip: 111...18 digit",Error nama wajib diisi,400,PASS
+BB-EP-029,Kasus BK,Validasi Status,EP - EP1 (Valid: Proses),Status = Proses,"student_id: 1 | type: Kedisiplinan | status: Proses",Kasus BK berhasil ditambahkan (status: Proses),201,PASS
+BB-EP-030,Kasus BK,Validasi Status,EP - EP2 (Valid: Selesai),Status = Selesai,"student_id: 1 | type: Akademik | status: Selesai",Kasus BK berhasil ditambahkan (status: Selesai),201,PASS
+BB-EP-031,Kasus BK,Validasi Status,EP - EP3 (Invalid),Status = Pending (di luar enum),"student_id: 1 | status: Pending",Error status tidak valid,400,PASS
+BB-EP-032,Kasus BK,Validasi Status,EP - EP3 (Case Sensitive),Status = proses (huruf kecil),"student_id: 1 | status: proses",Error status tidak valid (case-sensitive),400,PASS
+BB-EP-033,Kasus BK,Validasi Status,EP - EP4 (Default),Tanpa field status (default ke Proses),"student_id: 1 | type: Akademik",Kasus BK dibuat dengan status default Proses,201,PASS
+BB-EP-034,Kasus BK,Validasi student_id,EP - EP6 (Wajib),Tanpa student_id,"type: Kedisiplinan | status: Proses",Error student_id wajib diisi,400,PASS

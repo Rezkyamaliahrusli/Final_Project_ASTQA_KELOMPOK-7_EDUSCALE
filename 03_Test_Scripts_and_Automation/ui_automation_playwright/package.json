@@ -1,0 +1,16 @@
+{
+  "name": "eduscale-e2e",
+  "version": "1.0.0",
+  "description": "Playwright E2E Tests for EduScale Web Application",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "test:debug": "playwright test --debug",
+    "install:browsers": "playwright install chromium firefox"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0"
+  }
+}
